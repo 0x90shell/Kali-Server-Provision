@@ -1,0 +1,1 @@
+Add public ssh keys in this folder. Usernames will be based on filename. So user1.pub will create the account user1 and add the public key to user1's authorized keys.
