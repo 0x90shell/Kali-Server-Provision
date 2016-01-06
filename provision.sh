@@ -3,8 +3,8 @@
 #Run in provsion folder as root.
 #Provision folder should contain ssh_config.txt, motd.txt, pubkeys folder, and this script.
 
-#Shuffle entropy in case machine is in known/snapshot state. 
-#Probably unnecessary step considering urandom's methodology.
+#Randomly mixes seed values in case machine is in known/snapshot state. 
+#Probably unnecessary step considering urandom's process.
 rando_num=$(shuf -i1-500 -n1)
 head -c $rando_num'M' </dev/urandom > /dev/null
 
@@ -14,6 +14,7 @@ workdir=$(pwd)
 #SSH provision
 /bin/cp -rf motd.txt /etc/motd
 /bin/cp -rf sshd_config.txt /etc/ssh/sshd_config
+#Removes dual motd posting on login.
 sed -i -e '/pam_motd.so/s/^/#/' /etc/pam.d/sshd
 cd /etc/ssh
 /bin/rm ssh_host_*
@@ -32,6 +33,8 @@ cd "$workdir"
 for x in $(ls pubkeys/ | sed s/\.pub//)
 do 
  adduser --shell /bin/bash --disabled-password --gecos "" $x
+ #Since the purpose of this box is to conduct pentest, all users need full sudo access.
+ ##Edit additional groups per your builds.
  usermod -G sudo,wireshark,kismet,tcpdump $x
  mkdir -p /home/$x/.ssh/
  cat pubkeys/$x.pub > /home/$x/.ssh/authorized_keys
@@ -39,6 +42,10 @@ do
  chmod 600 /home/$x/.ssh/authorized_keys
  chown -R $x:$x /home/$x/.ssh
  rando=$(< /dev/urandom tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | head -c20)
+ #This password file can only be accessed by the user and those with root access. 
+ #Since only a small number of people (pentest team) should have access to this box, this is viewed
+ #as an acceptable temporary risk. SSH login can only be done via keyfile login and all team members 
+ #have applied passwords to their keys.
  echo -e "This is your password: $rando \nChange it by running command 'passwd'." > /home/$x/password.txt
  chown $x:$x /home/$x/password.txt
  chmod 400 /home/$x/password.txt
@@ -46,7 +53,7 @@ do
 done
  
 #Random root/user password
-#No one should need to login directly as either of these accounts. Password not saved.
+#No one can remotely login directly as either of these accounts. Password not saved.
 for x in user root
 do
  rando=$(< /dev/urandom tr -dc 'a-zA-Z0-9~!@#$%^&*_-' | head -c20)

@@ -67,4 +67,5 @@ LogLevel INFO
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
 
+#SFTP
 Subsystem sftp /usr/lib/openssh/sftp-server

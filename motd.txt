@@ -1,15 +1,4 @@
- ██ ▄█▀ ▄▄▄       ██▓     ██▓    ▄▄▄▄    ▒█████  ▒██   ██▒
- ██▄█▒ ▒████▄    ▓██▒    ▓██▒   ▓█████▄ ▒██▒  ██▒▒▒ █ █ ▒░
-▓███▄░ ▒██  ▀█▄  ▒██░    ▒██▒   ▒██▒ ▄██▒██░  ██▒░░  █   ░
-▓██ █▄ ░██▄▄▄▄██ ▒██░    ░██░   ▒██░█▀  ▒██   ██░ ░ █ █ ▒ 
-▒██▒ █▄ ▓█   ▓██▒░██████▒░██░   ░▓█  ▀█▓░ ████▓▒░▒██▒ ▒██▒
-▒ ▒▒ ▓▒ ▒▒   ▓▒█░░ ▒░▓  ░░▓     ░▒▓███▀▒░ ▒░▒░▒░ ▒▒ ░ ░▓ ░
-░ ░▒ ▒░  ▒   ▒▒ ░░ ░ ▒  ░ ▒ ░   ▒░▒   ░   ░ ▒ ▒░ ░░   ░▒ ░
-░ ░░ ░   ░   ▒     ░ ░    ▒ ░    ░    ░ ░ ░ ░ ▒   ░    ░  
-░  ░         ░  ░    ░  ░ ░      ░          ░ ░   ░    ░  
-                                      ░                  
-
-This machine is owned and maintained by the ASM Team.
+This machine is owned and maintained by the Pentest Team.
 This computer system may be monitored for all lawful purposes.
 Using this system constitutes consent to monitoring. 
 All information placed or sent may be obtained during monitoring. 
