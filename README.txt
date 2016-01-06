@@ -1,0 +1,15 @@
+This has already been run on the Kali2_SRV_Base.ova You only need to run these scripts if you're not using the provided SRV OVA.
+
+1. Copy folder to desired machine or share drive.
+
+2. Add any pubkeys for users you want to create to pubkeys folder. Username will be whatever prefixes ".pub" in keyfiles.
+
+3. Run ./provision.sh from within a Kali 2 instance. This will probably run on most modern Linux builds, but I've only tested on Kali 2.
+
+Notes:
+
+1. Random 20char passwords will be generated for all accounts. Users will be able to access through SSH only with key. Once user logs in they can view password.txt in their home folder to get the random password. They will need to reset to their own password with passwd command. All auto-generated accounts will have sudo access.
+
+2. "Root" and "user" account are randomly set, but they are not recoverable. "User" is used to run certain tasks as non-privileged by the "root" account. Sudo access for users should negate the need for root password. Run "sudo -i" to initiate root shell.
+
+3. Hostname is not changed. Change if needed.
