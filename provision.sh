@@ -34,7 +34,7 @@ for x in $(ls pubkeys/ | sed s/\.pub//)
 do 
  adduser --shell /bin/bash --disabled-password --gecos "" $x
  #Since the purpose of this box is to conduct pentest, all users need full sudo access.
- ##Edit additional groups per your builds.
+ #Edit additional groups per your builds.
  usermod -G sudo,wireshark,kismet,tcpdump $x
  mkdir -p /home/$x/.ssh/
  cat pubkeys/$x.pub > /home/$x/.ssh/authorized_keys
