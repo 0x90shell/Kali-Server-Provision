@@ -3,21 +3,61 @@
 #Run in provsion folder as root.
 #Provision folder should contain ssh_config.txt, motd.txt, pubkeys folder, and this script.
 
+#Packages
+apt-get update
+apt-get install git
+#Comment out the packages you want
+#All(wifi, radio, and gpu packages included)
+#apt-get install kali-linux-all
+#Base (no GPU, radio, or wifi)
+#apt-get install kali-linux-full kali-linux-top10 kali-linux-voip kali-linux-web kali-linux-forensic kali-linux-pwtools
+#GPU
+#apt-get install kali-linux-gpu
+#Wifi/Radio
+#apt-get install kali-linux-sdr kali-linux-rfid kali-linux-wireless
+git clone https://github.com/Veil-Framework/Veil /opt
+git clone https://github.com/PowerShellMafia/PowerSploit /opt
+git clone https://github.com/PowerShellEmpire/Empire /opt
+git clone https://github.com/leebaird/discover /opt
+git clone https://github.com/danielmiessler/SecLists /opt
+git clone https://github.com/pentestgeek/smbexec /opt
+git clone https://github.com/pentestmonkey/gateway-finder /opt
+git clone https://github.com/pentestmonkey/pysecdump /opt
+git clone https://github.com/pentestmonkey/timing-attack-checker /opt
+git clone https://github.com/pentestmonkey/unix-privesc-check /opt
+git clone https://github.com/pentestmonkey/windows-privesc-check /opt
+git clone https://github.com/portcullislabs/rdp-sec-check /opt
+git clone https://github.com/stribika/sshlabs /opt
+git clone https://github.com/stufus/egresscheck-framework /opt
+#king-phisher installed in kali2 default
+git clone https://github.com/securestate/king-phisher-templates /opt
+#alt phishing tool (could one day have all features of king, with better interface)
+#git clone https://github.com/gophish/gophish /opt
+/opt/Empire/setup/install.sh
+#Manual interaction required for veil/smbexec
+/opt/Veil/Install.sh
+/opt/smbexec/install.sh
+apt-get dist-upgrade -y
+apt-get autoremove; apt-get autoclean
+
 #Randomly mixes seed values in case machine is in known/snapshot state. 
 #Probably unnecessary step considering urandom's process.
 rando_num=$(shuf -i1-500 -n1)
 head -c $rando_num'M' </dev/urandom > /dev/null
 
-#Real work begins.
+#Kill TFTP
+sed -i 's/^tftp/#&/' /etc/inetd.conf && service inetd restart
+
+#SSH work begins.
 workdir=$(pwd)
 
 #SSH provision
-/bin/cp -rf motd.txt /etc/motd
-/bin/cp -rf sshd_config.txt /etc/ssh/sshd_config
+\cp -rf motd.txt /etc/motd
+\cp -rf sshd_config.txt /etc/ssh/sshd_config
 #Removes dual motd posting on login.
 sed -i -e '/pam_motd.so/s/^/#/' /etc/pam.d/sshd
 cd /etc/ssh
-/bin/rm ssh_host_*
+\rm ssh_host_*
 ssh-keygen -G /tmp/moduli -b 4096
 ssh-keygen -T /etc/ssh/moduli -f /tmp/moduli 
 ssh-keygen -t ed25519 -f ssh_host_ed25519_key -N ""
